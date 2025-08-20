@@ -52,7 +52,7 @@ trie = marisa_trie.Trie(keys)
 # LOCAL_PATH = "data/processed.json"
 
 
-CHUNK_DIR = "data"
+CHUNK_DIR = "."
 CHUNK_PREFIX = "processed_chunk_"
 REBUILT_PATH = "processed.json"
 
@@ -63,6 +63,7 @@ def load_full_json():
             f for f in os.listdir(CHUNK_DIR)
             if f.startswith(CHUNK_PREFIX)
         )
+        print(chunk_files)
         with open(REBUILT_PATH, "wb") as outfile:
             for fname in chunk_files:
                 with open(os.path.join(CHUNK_DIR, fname), "rb") as infile:
@@ -170,3 +171,7 @@ elif st.session_state.page == "definition":
     if word and code:
         st.markdown(f"## {word}")
         st.markdown(definition(code), unsafe_allow_html=True)
+
+
+if __name__ == "__main__":
+    load_full_json()
