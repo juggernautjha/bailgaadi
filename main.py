@@ -52,7 +52,7 @@ trie = marisa_trie.Trie(keys)
 # LOCAL_PATH = "data/processed.json"
 
 
-CHUNK_DIR = "."
+CHUNK_DIR = "data"
 CHUNK_PREFIX = "processed_chunk_"
 REBUILT_PATH = "processed.json"
 
