@@ -1,0 +1,110 @@
+/* Copied from http://www.ifactory.com/clients/oupoed/staticfiles/oed2/oed2.css */
+
+/* CSS reset */
+
+* {
+  padding: 0;
+  margin: 0;
+}
+ol, ul, li {list-style: none;}
+body {
+	background: url(../images/bg_main.png) #edf2fd top left repeat-x;
+	font-family: Georgia, Times, "Times New Roman", serif;
+	color: #333;
+	font-size: 12pt;
+}
+	#logo {
+		background: #1b1f40;
+		padding: 30px;
+		height: 65px;
+	}
+		#logo span {
+			background: url(../images/logo.png) transparent top left no-repeat;
+			display: block;
+			height: 45px;
+			text-indent: -222em;
+			width: 361px;
+		}
+	.entry {
+		background-color: white;
+		font-size: 1em;
+		line-height: 1.2;
+		margin: 125px 32px 64px 32px;
+		padding: 30px;
+	}
+	.hwLabel {
+		font-size: 1.5em;
+		margin-bottom: 1em;
+		color: #c9222c;
+	}
+	.entryLabel {
+		font-size: 1em;
+		margin-bottom: 1em;
+	}
+	.hw {font-weight: bold;}
+	.senseSect, .lgSect {
+		margin-top: 1em;
+		margin-bottom: 1em;
+	}
+	.smallTypeNote {
+		margin-left: 1em;
+		margin-top: 0.5em;
+		font-size: 0.8em;
+	}
+	.def {
+		text-indent: 0.5em;
+		margin-left: 1em;
+		margin-top: 0.5em;
+	}
+	.subdef {padding-left: 1em; color:#ccc}
+	.lemma {
+		color: #008000;	
+		font-weight: bold;
+	}
+	.quotationParagraph {
+		font-size: 0.9em;
+		margin-left: 3em;
+		margin-top: 1em;
+		margin-bottom: 1em;
+		text-indent: 0.5em;
+		color: #ccc;
+	}
+	.quotation {
+		padding-right: 0.3em;
+		color: #ccc;
+	}
+	.hm {
+		font-size: 0.7em;
+		vertical-align: super;
+		font-style: normal;
+	}
+	.italic {font-style: italic;}
+	.bold {font-weight: bold;}
+	.roman {
+		font-weight: normal;
+		font-style: normal;
+	}
+	.smallCaps {font-variant: small-caps;}
+	.superscript {vertical-align: super;}
+	.subscript {vertical-align: sub;}
+	.numbering {font-weight: bold;}
+	.nu {
+		font-size: 0.7em;
+		vertical-align: super;
+		font-style: normal;
+	}
+	.dn {
+		font-size: 0.7em;
+		vertical-align: sub;
+		font-style: normal;
+	}
+	
+	#editionStatement, #footer {font-weight: bold ;}
+	#editionStatement {margin: 0 0 32px 0;}
+
+
+#footer {
+	margin: 64px 0 0 0;
+	border-top: 1px solid #ccc;
+	padding: 32px 0;
+}
