@@ -36,13 +36,66 @@
 import streamlit as st
 import json
 import marisa_trie
+import os
+import requests
+import httpx
 
 # --- Load dictionary ---
 data = json.load(open("index.json"))
 keys = list(data.keys())
 trie = marisa_trie.Trie(keys)
 
-all_defs = json.load(open("processed.json"))
+# uri = "https://www.dropbox.com/scl/fi/d8dj72dcydgivv0vklvia/processed.json?rlkey=kbjfwo3qnucguakjho9b9goyl&st=n5mik6px&dl=1"
+# local = "processed.json"
+
+# DOWNLOAD_URL = "https://example.com/processed.json"
+# LOCAL_PATH = "data/processed.json"
+
+
+CHUNK_DIR = "data"
+CHUNK_PREFIX = "processed_chunk_"
+REBUILT_PATH = "processed.json"
+
+@st.cache_resource(show_spinner="Downloading data…")
+def load_full_json():
+    if not os.path.exists(REBUILT_PATH):
+        chunk_files = sorted(
+            f for f in os.listdir(CHUNK_DIR)
+            if f.startswith(CHUNK_PREFIX)
+        )
+        with open(REBUILT_PATH, "wb") as outfile:
+            for fname in chunk_files:
+                with open(os.path.join(CHUNK_DIR, fname), "rb") as infile:
+                    outfile.write(infile.read())
+
+    with open(REBUILT_PATH, "r", encoding="utf-8") as f:
+        return json.load(f)
+    if not os.path.exists(LOCAL_PATH):
+        os.makedirs(os.path.dirname(LOCAL_PATH), exist_ok=True)
+
+        with st.progress(0, text="Downloading...") as progress_bar:
+            with httpx.Client() as client:
+                with client.stream("GET", DOWNLOAD_URL) as response:
+                    response.raise_for_status()
+                    total = int(response.headers.get("content-length", 0))
+                    downloaded = 0
+
+                    with open(LOCAL_PATH, "wb") as f:
+                        for chunk in response.iter_bytes(chunk_size=8192):
+                            if chunk:
+                                f.write(chunk)
+                                downloaded += len(chunk)
+                                if total:
+                                    progress_bar.progress(min(downloaded / total, 1.0))
+
+    # Load JSON
+    with open(LOCAL_PATH, "r", encoding="utf-8") as f:
+        data = json.load(f)
+
+    return data
+
+# ✅ Usage
+all_defs = load_full_json()
 
 def inject_css():
     st.markdown(f"""
