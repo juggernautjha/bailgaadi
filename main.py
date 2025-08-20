@@ -71,28 +71,6 @@ def load_full_json():
 
     with open(REBUILT_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
-    if not os.path.exists(LOCAL_PATH):
-        os.makedirs(os.path.dirname(LOCAL_PATH), exist_ok=True)
-
-        with st.progress(0, text="Downloading...") as progress_bar:
-            with httpx.Client() as client:
-                with client.stream("GET", DOWNLOAD_URL) as response:
-                    response.raise_for_status()
-                    total = int(response.headers.get("content-length", 0))
-                    downloaded = 0
-
-                    with open(LOCAL_PATH, "wb") as f:
-                        for chunk in response.iter_bytes(chunk_size=8192):
-                            if chunk:
-                                f.write(chunk)
-                                downloaded += len(chunk)
-                                if total:
-                                    progress_bar.progress(min(downloaded / total, 1.0))
-
-    # Load JSON
-    with open(LOCAL_PATH, "r", encoding="utf-8") as f:
-        data = json.load(f)
-
     return data
 
 # ✅ Usage
